@@ -4,12 +4,12 @@ export default function ChatTile()  {
   return (
     <View
       style={[
-        styleChat.container,
+        styles.container,
         {
           flexDirection: 'row',
         },
       ]}>
-         <View style={styleChat.leftColumn}>
+         <View style={styles.leftColumn}>
          <Image
           source={{
             uri: 'https://reactnative.dev/docs/assets/p_cat2.png',
@@ -17,15 +17,15 @@ export default function ChatTile()  {
           style={{width: 70, height: 70}}
         />
          </View>
-         <View style={styleChat.rightColumn}>
-          <Text style={styleChat.title}>Michael Jackson this awesome </Text>
-          <Text>hee hee</Text>
+         <View style={styles.rightColumn}>
+          <Text style={styles.title}>Michael Jackson</Text>
+          <Text style={styles.subtitle}>hee hee</Text>
          </View>
     </View>
   )
 };
 
-const styleChat = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
     marginVertical: 2,
@@ -34,6 +34,10 @@ const styleChat = StyleSheet.create({
   },
   title: {
     fontSize: 20,
+    color: 'white',
+  },
+  subtitle: {
+    fontSize: 16,
     color: 'white',
   },
   rightColumn: {

@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
-import ChatTile from './components/ChatTile';
+import { StyleSheet, Text, View, Image } from "react-native";
+import ChatTile from "./components/ChatTile";
 
 export default function App() {
   return (
@@ -13,8 +13,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'start',
-    alignItems: 'center',
+    justifyContent: "start",
+    alignItems: "center",
     padding: 4,
+    backgroundColor: "rgba(40,40,50,1)",
   },
 });
