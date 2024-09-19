@@ -20,8 +20,8 @@ const ChatTile = () => {
         />
          </View>
          <View style={styleChat.rightColumn}>
-          <Text style={styleChat.title}>Hello, how are you?</Text>
-          <Text>Hello, how are you 2?</Text>
+          <Text style={styleChat.title}>Michael Jackson</Text>
+          <Text>hee hee</Text>
          </View>
     </View>
   )
