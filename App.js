@@ -17,7 +17,7 @@ const chats = Array.from({ length: 20 }, () => ({
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={{ color: "white" }}>Chats</Text>
+      <Text style={styles.heading}>Chats</Text>
       <FlatList
         style={{ width: "100%" }}
         data={chats}
@@ -36,5 +36,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     padding: 4,
     backgroundColor: "rgba(40,40,50,1)",
+  },
+  heading: {
+    fontSize: 34,
+    color: "white",
+    alignSelf: "flex-start",
+    margin: 10,
   },
 });
