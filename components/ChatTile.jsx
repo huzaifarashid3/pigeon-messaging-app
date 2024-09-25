@@ -29,7 +29,6 @@ export default function ChatTile() {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 2,
-    width: "100%",
     height: 120,
   },
   title: {

@@ -18,7 +18,6 @@ export default function App() {
     <View style={styles.container}>
       <Text style={{ color: "white" }}>Chats</Text>
       <FlatList
-        style={{ width: "100%" }}
         data={chats}
         renderItem={({ item }) => <ChatTile />}
         keyExtractor={(item) => item.title}
@@ -30,8 +29,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "flex-end",
     padding: 4,
     backgroundColor: "rgba(40,40,50,1)",
   },
