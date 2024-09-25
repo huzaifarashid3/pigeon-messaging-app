@@ -28,8 +28,8 @@ export default function ChatTile() {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 2,
-    width: "100%",
+    // marginVertical: 2,
+    rowGap: 2,
     height: 120,
   },
   title: {
