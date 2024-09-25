@@ -18,9 +18,9 @@ export default function App() {
     <View style={styles.container}>
       <Text style={{ color: "white" }}>Chats</Text>
       <FlatList
+        ItemSeparatorComponent={() => <View style={{ height: 2 }} />}
         data={chats}
-        renderItem={({ item }) => <ChatTile />}
-        keyExtractor={(item) => item.title}
+        renderItem={(_) => <ChatTile />}
       />
     </View>
   );
