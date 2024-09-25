@@ -1,35 +1,45 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableHighlight,
+} from "react-native";
 
-export default function ChatTile() {
+export default function touchableChatTile() {
+  function _onPressButton() {
+    console.log("Pressed tile");
+  }
+
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          flexDirection: "row",
-        },
-      ]}
-    >
-      <View style={styles.leftColumn}>
-        <Image
-          source={{
-            uri: "https://reactnative.dev/docs/assets/p_cat2.png",
-          }}
-          style={{ width: 70, height: 70 }}
-        />
+    <TouchableHighlight onPress={_onPressButton} underlayColor={"white"}>
+      <View
+        style={[
+          styles.container,
+          {
+            flexDirection: "row",
+          },
+        ]}
+      >
+        <View style={styles.leftColumn}>
+          <Image
+            source={{
+              uri: "https://reactnative.dev/docs/assets/p_cat2.png",
+            }}
+            style={{ width: 70, height: 70 }}
+          />
+        </View>
+        <View style={styles.rightColumn}>
+          <Text style={styles.title}>Michael Jackson</Text>
+          <Text style={styles.subtitle}>hee hee</Text>
+        </View>
       </View>
-      <View style={styles.rightColumn}>
-        <Text style={styles.title}>Michael Jackson</Text>
-        <Text style={styles.subtitle}>hee hee</Text>
-      </View>
-    </View>
+    </TouchableHighlight>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // marginVertical: 2,
-    rowGap: 2,
     height: 120,
   },
   title: {

@@ -7,7 +7,6 @@ import {
   FlatList,
 } from "react-native";
 import ChatTile from "./components/ChatTile";
-import TouchableChatTile from "./components/touchableChatTile";
 
 const chats = Array.from({ length: 20 }, () => ({
   title: "michael",
@@ -21,7 +20,7 @@ export default function App() {
       <FlatList
         ItemSeparatorComponent={() => <View style={{ height: 2 }} />}
         data={chats}
-        renderItem={({ item }) => <TouchableChatTile />}
+        renderItem={({ item }) => <ChatTile />}
       />
     </View>
   );
