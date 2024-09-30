@@ -4,10 +4,15 @@ import {
   Image,
   StyleSheet,
   TouchableHighlight,
+  Pressable,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function touchableChatTile() {
+export default function ChatTile() {
+  const navigation = useNavigation();
+
   function _onPressButton() {
+    navigation.navigate("ChatScreen");
     console.log("Pressed tile");
   }
 
