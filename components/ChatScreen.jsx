@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,13 +12,33 @@ import {
 
 const ChatScreen = () => {
   const [text, setText] = useState("Useless Text");
+  const [allMessages, setAllMessages] = useState([]);
   const [myMessages, setMyMessages] = useState([]);
   const [yourMessages, setYourMessages] = useState([
-    { message: "your message", sender: "you" },
+    {
+      message: "your message",
+      sender: "you",
+      time: new Date(),
+    },
   ]);
 
+  useEffect(() => {
+    const temp = [...myMessages, ...yourMessages];
+    temp.sort(function (a, b) {
+      return a.time - b.time;
+    });
+    setAllMessages(temp);
+  }, [myMessages, yourMessages]);
+
   function addMessage(text) {
-    setMyMessages([...myMessages, { message: text, sender: "me" }]);
+    setMyMessages([
+      ...myMessages,
+      {
+        message: text,
+        sender: "me",
+        time: new Date(),
+      },
+    ]);
   }
 
   return (
@@ -26,7 +46,7 @@ const ChatScreen = () => {
       <View style={{ backgroundColor: "yellow", flex: 1 }}>
         <FlatList
           style={{ backgroundColor: "blue", flex: 3 }}
-          data={[...myMessages, ...yourMessages]}
+          data={allMessages}
           renderItem={({ item }) => {
             return (
               <View
@@ -34,7 +54,7 @@ const ChatScreen = () => {
                   alignSelf: item.sender == "me" ? "flex-end" : "flex-start",
                 }}
               >
-                <Text>{item.message}</Text>
+                <Text>{item.time.toUTCString()}</Text>
               </View>
             );
           }}
