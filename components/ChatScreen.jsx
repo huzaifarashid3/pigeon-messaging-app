@@ -13,15 +13,17 @@ const ChatScreen = () => {
   const [text, setText] = useState("Useless Text");
 
   return (
-    <View style={{ flex: 1 }}>
-      <View style={{ backgroundColor: "yellow", flex: 1 }}></View>
-      <View style={{ backgroundColor: "red", height: 80 }}>
-        <TextInput
-          onChangeText={(newtext) => setText(newtext)}
-          defaultValue={text}
-        />
+    <ScrollView>
+      <View style={{ flex: 1 }}>
+        <View style={{ backgroundColor: "yellow", flex: 1 }}></View>
+        <View style={{ backgroundColor: "red", height: 80 }}>
+          <TextInput
+            onChangeText={(newtext) => setText(newtext)}
+            defaultValue={text}
+          />
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
