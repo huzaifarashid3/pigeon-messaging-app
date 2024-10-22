@@ -11,12 +11,12 @@ import {
 } from "react-native";
 
 const ChatScreen = () => {
-  const [text, setText] = useState("Useless Text");
+  const [text, setText] = useState([]);
   const [allMessages, setAllMessages] = useState([]);
   const [myMessages, setMyMessages] = useState([]);
   const [yourMessages, setYourMessages] = useState([
     {
-      message: "your message",
+      message: "you's message",
       sender: "you",
       time: new Date(),
     },
@@ -54,18 +54,39 @@ const ChatScreen = () => {
                   alignSelf: item.sender == "me" ? "flex-end" : "flex-start",
                 }}
               >
-                <Text>{item.time.toUTCString()}</Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    backgroundColor:
+                      item.sender == "me" ? "orange" : "powderblue",
+                    borderWidth: 2,
+                    textAlign: "center",
+                    borderColor: "steelblue",
+                    borderRadius: "15px",
+                    padding: 10,
+                  }}
+                >
+                  {item.message}
+                </Text>
               </View>
             );
           }}
         />
       </View>
-      <View style={{ backgroundColor: "red", height: 80 }}>
+      <View
+        style={{ backgroundColor: "red", height: 80, flexDirection: "row" }}
+      >
         <TextInput
+          style={{ flex: 3 }}
           onChangeText={(newtext) => setText(newtext)}
           defaultValue={text}
+          placeholder="Enter message"
         />
-        <Button onPress={() => addMessage(text)} title="send" />
+        <Button
+          style={{ flex: 1, textAlign: "center" }}
+          onPress={() => addMessage(text)}
+          title="send"
+        />
       </View>
     </View>
   );
