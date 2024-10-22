@@ -12,9 +12,13 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "bundleIdentifier": "com.huha.pigeon"
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
+      "package": "com.huha.pigeon",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -22,6 +26,10 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": ["@react-native-firebase/app"],
+    "ios": {
+      "bundleIdentifier": "com.huha.pigeon"
     }
   }
 }

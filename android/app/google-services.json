@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "547217627366",
+    "firebase_url": "https://pigeon-messaging-app-db958-default-rtdb.firebaseio.com",
+    "project_id": "pigeon-messaging-app-db958",
+    "storage_bucket": "pigeon-messaging-app-db958.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547217627366:android:114521c659208ff604c327",
+        "android_client_info": {
+          "package_name": "com.huha.pigeon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsm3jFdx5dfDNg9ansPn-Y3b1svG2qAL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
