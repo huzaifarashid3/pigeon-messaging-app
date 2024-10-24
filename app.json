@@ -11,11 +11,6 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true,
-      "googleServicesFile": "./GoogleService-Info.plist",
-      "bundleIdentifier": "com.huha.pigeon"
-    },
     "android": {
       "googleServicesFile": "./google-services.json",
       "package": "com.huha.pigeon",
@@ -27,6 +22,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["@react-native-firebase/app"]
+    "plugins": [
+      "@react-native-firebase/app"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "8e4dccf6-9133-4ead-a87d-d38740ff00f1"
+      }
+    }
   }
 }

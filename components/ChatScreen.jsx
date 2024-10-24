@@ -62,7 +62,7 @@ const ChatScreen = () => {
                     borderWidth: 2,
                     textAlign: "center",
                     borderColor: "steelblue",
-                    borderRadius: "15px",
+                    borderRadius: 15,
                     padding: 10,
                   }}
                 >
