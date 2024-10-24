@@ -3,6 +3,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ChatTile from "./components/ChatTile";
 import ChatScreen from "./components/ChatScreen";
+import firestore from "@react-native-firebase/firestore";
+
+firestore()
+  .collection("test")
+  .get()
+  .then(() => console.log(user));
 
 const chats = Array.from({ length: 20 }, () => ({
   title: "michael",
