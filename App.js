@@ -6,9 +6,22 @@ import ChatScreen from "./components/ChatScreen";
 import firestore from "@react-native-firebase/firestore";
 
 firestore()
-  .collection("test")
+  .collection("chats")
   .get()
-  .then(() => console.log(user));
+  .then((docs) => {
+    docs.forEach((doc) => {
+      doc.ref
+        .collection("messages")
+        .get()
+        .then((q) => {
+          q.forEach((d) => {
+            // console.log(d.data());
+          });
+        });
+    });
+  })
+
+  .catch((e) => console.log(e));
 
 const chats = Array.from({ length: 20 }, () => ({
   title: "michael",

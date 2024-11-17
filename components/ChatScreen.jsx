@@ -9,18 +9,53 @@ import {
   TextInput,
   Button,
 } from "react-native";
+import firestore from "@react-native-firebase/firestore";
+
+const userId = "1";
 
 const ChatScreen = () => {
   const [text, setText] = useState([]);
   const [allMessages, setAllMessages] = useState([]);
   const [myMessages, setMyMessages] = useState([]);
-  const [yourMessages, setYourMessages] = useState([
-    {
-      message: "you's message",
-      sender: "you",
-      time: new Date(),
-    },
-  ]);
+  const [yourMessages, setYourMessages] = useState([]);
+
+  // useEffect to get data from firebase
+  useEffect(() => {
+    // get data from firebase
+    async function getFirebaseData() {
+      // why good
+      const myChats = await firestore()
+        .collection("chats")
+        .where("participants", "array-contains", userId)
+        .get();
+
+      myChats.forEach(async (doc) => {
+        const messages = await doc.ref.collection("messages").get();
+        messages.forEach((message) => {
+          message = message.data();
+          if (message.sender == userId) {
+            addMyMessage(message.message);
+          } else {
+            addYourMessage(message.message);
+          }
+        });
+      });
+    }
+    getFirebaseData();
+  }, []);
+
+  // iterate over all documents in the chats
+  // in each chat check if useId exists in the participants array
+  // if yes then
+  //  unreference that document
+  //   get the messages collection
+  // get all documents
+  // and store them in a temp array
+
+  // now temp array has all the messagess
+  // iterate over each message
+  // if userId = senderId, add a message object to myMessages array
+  // else add to your messages
 
   useEffect(() => {
     const temp = [...myMessages, ...yourMessages];
@@ -30,7 +65,18 @@ const ChatScreen = () => {
     setAllMessages(temp);
   }, [myMessages, yourMessages]);
 
-  function addMessage(text) {
+  function addYourMessage(text) {
+    setYourMessages([
+      ...yourMessages,
+      {
+        message: text,
+        sender: "you",
+        time: new Date(),
+      },
+    ]);
+  }
+
+  function addMyMessage(text) {
     setMyMessages([
       ...myMessages,
       {
@@ -39,6 +85,13 @@ const ChatScreen = () => {
         time: new Date(),
       },
     ]);
+  }
+
+  function postMessage(text) {
+    firestore().collection("chats").doc(userId).collection("messages").add({
+      message: text,
+      sender: userId,
+    });
   }
 
   return (
@@ -59,10 +112,9 @@ const ChatScreen = () => {
                     fontSize: 14,
                     backgroundColor:
                       item.sender == "me" ? "orange" : "powderblue",
-                    borderWidth: 2,
                     textAlign: "center",
                     borderColor: "steelblue",
-                    borderRadius: "15px",
+                    borderRadius: 15,
                     padding: 10,
                   }}
                 >
@@ -84,7 +136,7 @@ const ChatScreen = () => {
         />
         <Button
           style={{ flex: 1, textAlign: "center" }}
-          onPress={() => addMessage(text)}
+          onPress={() => postMessage(text)}
           title="send"
         />
       </View>
