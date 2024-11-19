@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ChatTile from "./components/ChatTile";
 import ChatScreen from "./components/ChatScreen";
+import Login from "./components/Login";
 import firestore from "@react-native-firebase/firestore";
 
 firestore()
@@ -48,6 +49,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="Home"
           component={HomeScreen}

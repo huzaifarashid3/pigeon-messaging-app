@@ -18,7 +18,7 @@ const ChatScreen = () => {
   const [allMessages, setAllMessages] = useState([]);
   const [myMessages, setMyMessages] = useState([]);
   const [yourMessages, setYourMessages] = useState([]);
-
+  const [refresh, setRefresh] = useState();
   // useEffect to get data from firebase
   useEffect(() => {
     // get data from firebase
@@ -29,70 +29,70 @@ const ChatScreen = () => {
         .where("participants", "array-contains", userId)
         .get();
 
-      myChats.forEach(async (doc) => {
-        const messages = await doc.ref.collection("messages").get();
-        messages.forEach((message) => {
-          message = message.data();
-          if (message.sender == userId) {
-            addMyMessage(message.message);
-          } else {
-            addYourMessage(message.message);
-          }
-        });
+      myChats.forEach((doc) => {
+        doc.ref
+          .collection("messages")
+          .get()
+          .then((messages) => {
+            messages.forEach((message) => {
+              message = message.data();
+              if (message.sender == userId) {
+                addMyMessage(message.message);
+              } else {
+                addYourMessage(message.message);
+              }
+            });
+          });
       });
     }
     getFirebaseData();
-  }, []);
-
-  // iterate over all documents in the chats
-  // in each chat check if useId exists in the participants array
-  // if yes then
-  //  unreference that document
-  //   get the messages collection
-  // get all documents
-  // and store them in a temp array
-
-  // now temp array has all the messagess
-  // iterate over each message
-  // if userId = senderId, add a message object to myMessages array
-  // else add to your messages
+  }, [refresh]);
 
   useEffect(() => {
     const temp = [...myMessages, ...yourMessages];
     temp.sort(function (a, b) {
       return a.time - b.time;
     });
+    // console.log(temp);
     setAllMessages(temp);
   }, [myMessages, yourMessages]);
 
   function addYourMessage(text) {
-    setYourMessages([
-      ...yourMessages,
-      {
-        message: text,
-        sender: "you",
-        time: new Date(),
-      },
-    ]);
+    setYourMessages((e) => {
+      return [
+        ...e,
+        {
+          message: text,
+          sender: "you",
+          time: new Date(),
+        },
+      ];
+    });
   }
 
   function addMyMessage(text) {
-    setMyMessages([
-      ...myMessages,
-      {
-        message: text,
-        sender: "me",
-        time: new Date(),
-      },
-    ]);
+    console.log(text, "message added");
+    setMyMessages((e) => {
+      return [
+        ...e,
+        {
+          message: text,
+          sender: "me",
+          time: new Date(),
+        },
+      ];
+    });
   }
 
   function postMessage(text) {
-    firestore().collection("chats").doc(userId).collection("messages").add({
+    firestore().collection("chats").doc("1").collection("messages").add({
       message: text,
       sender: userId,
     });
+    addMyMessage(text);
+    setRefresh();
   }
+  const [selectedId, setSelectedId] = useState();
 
   return (
     <View style={{ flex: 1 }}>
@@ -100,6 +100,7 @@ const ChatScreen = () => {
         <FlatList
           style={{ backgroundColor: "blue", flex: 3 }}
           data={allMessages}
+          keyExtractor={(item, index) => index}
           renderItem={({ item }) => {
             return (
               <View
