@@ -7,7 +7,17 @@ import { Pressable } from 'react-native';
 export default function TabLayout() {
   return (
     <Tabs
+      initialRouteName='main_screen'
+      screenOptions={{
+        headerShown: false
+      }}
     >
+      <Tabs.Screen
+        name="index"
+        options={{
+          href: null,
+        }}
+      />
       <Tabs.Screen name="main_screen" options={{
         title: 'Main',
         tabBarIcon: ({ color }) => <FontAwesome name="home" size={20} color={color} />

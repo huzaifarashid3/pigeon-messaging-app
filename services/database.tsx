@@ -1,9 +1,15 @@
 import firestore from "@react-native-firebase/firestore";
 
+interface User {
+    id: string;
+    name: string;
+    password: string;
+}
+
 class FirestoreService {
     private firestore: ReturnType<typeof firestore>;
 
-    constructor() {
+    public constructor() {
         this.firestore = firestore();
     }
 
@@ -67,6 +73,18 @@ class FirestoreService {
         }
     }
 
+    async getAllUsers() {
+        try {
+            const snapshot = await this.firestore.collection('users').get();
+            const users = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as User[];
+            const userNames = users.map(user => user.name);
+            return userNames;
+        } catch (error) {
+            console.error("Error getting users:", error);
+            throw error;
+        }
+    }
+
     async getUserChats(userId: string) {
         try {
             const snapshot = await this.firestore
@@ -96,7 +114,7 @@ class FirestoreService {
     }
 
     async getChatHistoryOfUsers(userIds: string[]) {
-        // the firebase sturcture is lik
+        // the firebase sturcture is like
         // chats collection has a document with the chat id
         // the chat document has a subcollection called messages
         // the chat document has a field called users which is an array of user ids
@@ -134,6 +152,8 @@ class FirestoreService {
             throw error;
         }
     }
+
+
 }
 
-export default new FirestoreService();
+export default FirestoreService;

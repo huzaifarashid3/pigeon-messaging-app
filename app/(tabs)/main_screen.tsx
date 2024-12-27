@@ -2,22 +2,20 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import firestore from '@react-native-firebase/firestore';
 import { Link } from 'expo-router';
-
+import FirestoreService from '../../services/database';
 const usersCollection = firestore().collection('users');
 
+const firestoreService = new FirestoreService();
+
 const MainScreen = () => {
-    const [users, setUsers] = useState<{ name: string }[]>([]);
+    const [users, setUsers] = useState<string[]>([]);
 
     useEffect(() => {
-        usersCollection.get().then((querySnapshot) => {
-            const usersList: { name: string }[] = [];
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                usersList.push({ name: data.name as string });
-            });
-            setUsers(usersList);
+        firestoreService.getAllUsers().then((users: string[]) => {
+            setUsers(users);
         });
     }, []);
+
 
     return (
         <View>
@@ -26,7 +24,7 @@ const MainScreen = () => {
                 data={users}
                 renderItem={({ item }) => (
                     <View>
-                        <Text>{item.name}</Text>
+                        <Text>{item}</Text>
                         <Link href="/chat_screen" asChild>
                             <TouchableOpacity>
                                 <Text>Chat</Text>
